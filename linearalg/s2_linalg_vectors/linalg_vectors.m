@@ -350,11 +350,11 @@ z = complex(3,4);
 % magnitude
 norm(z)
 
-% by transpose?
-transpose(z)*z
+% by transpose? (3 + 4i)(3 + 4i) = -7 + 24i
+transpose(z)*z  
 
-% by Hermitian transpose
-z'*z
+% by Hermitian transpose (3 - 4i)(3 + 4i) = 25
+z'*z  
 
 % not the Hermitian:
 z.'*z
@@ -415,12 +415,11 @@ S = [ [1 1 0]' [1 7 0]' ];
 v = [1 2 0]';
 w = [3 2 1]';
 
-
 figure(6), clf, hold on
-plot3([0 S(1,1)],[0 S(2,1)],[0 S(3,1)],'g','linew',3)
-plot3([0 S(1,2)],[0 S(2,2)],[0 S(3,2)],'g','linew',3)
+plot3([0 S(1,1)],[0 S(2,1)],[0 S(3,1)],'r','linew',3)
+plot3([0 S(1,2)],[0 S(2,2)],[0 S(3,2)],'r','linew',3)
 
-plot3([0 v(1)],[0 v(2)],[0 v(3)],'k','linew',3)
+plot3([0 v(1)],[0 v(2)],[0 v(3)],'g','linew',3)
 plot3([0 w(1)],[0 w(2)],[0 w(3)],'b','linew',3)
 
 % draw the plane spanned by S
