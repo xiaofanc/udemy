@@ -164,8 +164,90 @@ v3b = [ v1(2)*v2(3) - v1(3)*v2(2);
 % draw vectors and the plane they span
 figure(5), clf, hold on
 h = ezmesh( @(s,t)v1(1)*s+v2(1)*t , @(s,t)v1(2)*s+v2(2)*t , @(s,t)v1(3)*s+v2(3)*t , [-1 1 -1 1]*2);
+set(h,'facecolor','g','cdata',ones(50),'EdgeColor','none')
 
+% individual vectors
+plot3([0 v1(1)],[0 v1(2)],[0 v1(3)],'k','linew',3)
+plot3([0 v2(1)],[0 v2(2)],[0 v2(3)],'k','linew',3)
+plot3([0 v3a(1)],[0 v3a(2)],[0 v3a(3)],'r--','linew',3)
 
+% make the plot look a bit nicer
+xlabel('R_1'), ylabel('R_2'), zlabel('R_3')
+axis square
+grid on, rotate3d on, hold on
+title('')
+
+% conjugate transpose
+% create a complex number
+z = complex(3,4);
+
+% magnitude
+norm(z)
+
+% by transpose? (3 + 4i)(3 + 4i) = -7 + 24i
+transpose(z)*z  
+
+% by Hermitian transpose (3 - 4i)(3 + 4i) = 25
+z'*z  
+
+% not the Hermitian
+% z.' is the regular transpose - (3 + 4i)(3 + 4i) = -7 + 24i
+z.'*z 
+
+% complex vector
+v = [ 3 4i 5+2i complex(2,-5) ];
+v'     % Hermitian transpose
+v.'    % regualr transpose - same as the original complex
+transpose(v)  % regualr transpose - same as the original complex
+
+% Interpreting and creating unit vectors
+% vector
+v1 = [ -3 6 ];
+
+% mu
+mu = 1/norm(v1);
+
+% plot them
+figure(6), clf
+
+% the main plotting lines:
+plot([0 v1(1)],[0 v1(2)],'b','linew',2)
+hold on
+plot([0 v1(1)]*mu,[0 v1(2)]*mu,'r:','linew',4)
+
+% this code just makes the plot look nicer
+axis square
+axis([ -1 1 -1 1 ]*norm(v1))
+hold on
+plot(get(gca,'xlim'),[0 0],'k--')
+plot([0 0],get(gca,'ylim'),'k--')
+xlabel('X_1 dimension')
+ylabel('X_2 dimension')
+
+% Span
+% set S
+S = [ [1 1 0]' [1 7 0]' ]; 
+
+% vectors v and w
+v = [1 2 0]';
+w = [3 2 1]';
+
+figure(6), clf, hold on
+plot3([0 S(1,1)],[0 S(2,1)],[0 S(3,1)],'r','linew',3)
+plot3([0 S(1,2)],[0 S(2,2)],[0 S(3,2)],'r','linew',3)
+
+plot3([0 v(1)],[0 v(2)],[0 v(3)],'g','linew',3)
+plot3([0 w(1)],[0 w(2)],[0 w(3)],'b','linew',3)
+
+% draw the plane spanned by S
+normvec = cross(S(:,1),S(:,2));
+[X,Y] = meshgrid(-4:4,-4:4);
+z = -(normvec(1)*X + normvec(2)*Y)/normvec(3);
+surf(X,Y,z)
+shading interp
+
+axis square
+grid on, rotate3d on
 
 
 
