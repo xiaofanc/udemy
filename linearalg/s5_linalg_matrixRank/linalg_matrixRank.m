@@ -46,7 +46,7 @@ disp([ 'rank(with noise) = ' num2str(rank(B)) ])
 %%
 %     COURSE: Linear algebra: theory and implementation
 %    SECTION: Matrix rank
-%      VIDEO: Rank of A^TA and AA^T
+%      VIDEO: Rank of A^TA and AA^T - same as rank(a)
 % Instructor: sincxpress.com
 %
 %%
