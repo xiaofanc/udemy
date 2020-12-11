@@ -94,9 +94,9 @@ M'' % note: '' not "
 
 % warning! be careful when using complex matrices
 C = [ 4+1i 3 2-4i ];
-C'
-transpose(C)
-C.'
+C'              % [ 4-1i; 3; 2+4i ];
+transpose(C)    % same as C
+C.'             % same as C
 
 
 %%
@@ -116,7 +116,7 @@ d = diag(M);
 
 % notice the two ways of using the diag function
 d = diag(M); % input is matrix, output is vector
-D = diag(d); % input is vector, output is matrix
+D = diag(d); % input is vector, output is matrix with only diagonal
 
 
 % trace as sum of diagonal elements
@@ -134,6 +134,10 @@ tr2 = sum( diag(M) );
 %%
 
 % create a matrix
+% 1   4   7   10
+% 2   5   8   11
+% 3   6   9   12
+
 A = reshape(1:12,3,4);
 
 % and two vectors
@@ -143,8 +147,17 @@ c = [ 100 200 300 ]';
 %% three methods for broadcasting
 
 % the repmat way
-A + repmat(r,size(A,1),1)
-A + repmat(c,1,size(A,2))
+% [1   4   7   10] + [10 20 30 40] = [11   24   37   50]
+% [2   5   8   11] + [10 20 30 40] = [12   25   38   51]
+% [3   6   9   12] + [10 20 30 40] = [13   26   39   52]
+
+A + repmat(r,size(A,1),1) % copy r 3 times;
+
+% [1   4   7   10] + [100 100 100 100] = [101   104   107   110]
+% [2   5   8   11] + [200 200 200 200] = [202   205   208   211]
+% [3   6   9   12] + [300 300 300 300] = [303   306   309   312]
+
+A + repmat(c,1,size(A,2)) % copy c 4 times;
 
 % the bsxfun way
 bsxfun(@plus,A,r)
@@ -161,3 +174,4 @@ A + c
 
 % Interested in more courses? See sincxpress.com 
 % Use code MXC-DISC4ALL for the lowest price for all courses.
+
