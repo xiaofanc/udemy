@@ -72,6 +72,7 @@ w = [-1 0 1 2]'; % transpose to get a column vector
 
 
 % with symmetric matrix
+% s' = s due to symmetric property
 S*w    % 1
 (S*w)' % 2
 w*S    % 3
@@ -94,7 +95,7 @@ w'*N   % 5
 %
 %%
 
-
+% rotation & stretching
 % 2D input vector
 v = [ 3 -2 ];
 
@@ -126,13 +127,14 @@ title('Rotation + stretching')
 
 %% pure rotation matrix
 
+% rotation only
 % 2D input vector
 v = [ 3 -2 ];
 
 % rotation angle (specify in radians)
 theta = pi/30;
 
-% 2x2 transformation matrix
+% 2x2 pure transformation matrix
 A = [ cos(theta) -sin(theta);
       sin(theta) cos(theta) ];
 
@@ -246,13 +248,16 @@ C = A .* B
 
 %%
 %     COURSE: Linear algebra: theory and implementation
-%    SECTION: Matrix multiplication
+%    SECTION: symmetric Matrix multiplication
 %      VIDEO: Multiplication of two symmetric matrices
 % Instructor: sincxpress.com
 %
 %%
 
 syms a b c d e f g h k l m n o p q r s t u
+
+% symmetric Matrix multiplication is not a symmetric matrix except square marix 
+with constant-diagonal and zero matrices
 
 % symmetric and constant-diagonal matrices
 A = [ a b c d;
@@ -276,7 +281,8 @@ diag(B)
 % but AB neq (AB)'
 A*B - (A*B).'
 
-% maybe for a submatrix?
+% maybe for a
+submatrix?
 n = 3;
 A1 = A(1:n,1:n);
 B1 = B(1:n,1:n);
@@ -285,7 +291,7 @@ A1*B1 - (A1*B1).'
 
 %%
 %     COURSE: Linear algebra: theory and implementation
-%    SECTION: Matrix multiplication
+%    SECTION: Frobenius Norm - like vector norm
 %      VIDEO: Frobenius dot-product
 % Instructor: sincxpress.com
 %
@@ -304,11 +310,11 @@ Bv = B(:);
 frob_dp = sum( Av.*Bv );
 
 % trace method
-frob_dp2 = trace( A'*B );
+frob_dp2 = trace( A'*B );  % = frob_dp
 
 % matrix norm
-Anorm  = norm(A,'fro');
-Anorm2 = sqrt( trace( A'*A ) );
+Anorm  = norm(A,'fro'); 
+Anorm2 = sqrt( trace( A'*A ) );  % = Anorm
 
 
 %%
@@ -321,26 +327,27 @@ Anorm2 = sqrt( trace( A'*A ) );
 % Create a matrix
 A = [ 1 2 3; 4 5 6; 7 7 9 ];
 % optional orthogonal matrix to show that 2-norm is 1
-% [Q,R] = qr(randn(5));
+% [Q,R] = qr(randn(5)); % decompose orthogonal matrix Q
 % A = Q;
 
 % Frobenius norm
 normFrob = norm(A,'fro');
 
-% induced 2-norm
+% induced 2-norm - how much A scales vector x 
+% orthogonal matrix 2-norm is 1
 normInd2 = norm(A);
+
 % note: computed as below
 % lambda = sqrt( max(eig(A'*A)) );
-
 
 % schatten p-norm
 p = 1;
 s = svd(A); % get singular values
 normSchat = sum(s.^p)^(1/p);
 
-
 % show all norms for comparison
-disp([ normFrob normInd2 normSchat ])
+% normInd2 = 1 when commenting out [Q,R] 
+disp([ normFrob normInd2 normSchat])
 
 
 %% end.
