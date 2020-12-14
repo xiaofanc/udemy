@@ -381,7 +381,6 @@ v1 = [ -3 6 ];
 % mu
 mu = 1/norm(v1);
 
-
 % plot them
 figure(5), clf
 
