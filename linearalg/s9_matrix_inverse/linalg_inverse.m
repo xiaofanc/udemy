@@ -88,17 +88,18 @@ title('A^{-1} from inv() function'), axis square, axis off
 
 % m>n for left inverse,
 % m<n for right inverse
+
 m = 6;
 n = 3;
 
 % create matrices
 A = randn(m,n);
-AtA = A'*A;
-AAt = A*A';
+AtA = A'*A;  % 3x3
+AAt = A*A';  % 6x6
 
 % inspect ranks
-disp([ 'Rank of A^TA: ' num2str(rank(AtA)) ])
-disp([ 'Rank of AA^T: ' num2str(rank(AAt)) ])
+disp([ 'Rank of A^TA: ' num2str(rank(AtA)) ])  %3
+disp([ 'Rank of AA^T: ' num2str(rank(AAt)) ])  %3
 
 % left inverse
 Aleft = inv(AtA)*A';
@@ -107,8 +108,8 @@ Aleft = inv(AtA)*A';
 Aright = A'*inv(AAt);
 
 % now test!
-I_left  = Aleft  * A;
-I_right = A * Aright;
+I_left  = Aleft  * A;    % identity matrix since A is a full column rank matrix, so it has left inverse
+I_right = A * Aright;    % not identity matrix
 
 % and then test using the inverse function
 AtA_inv = inv(AtA);
